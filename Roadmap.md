@@ -34,6 +34,7 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 - [x] Set up ESLint with TypeScript-aware rules + Prettier
 - [x] Install and configure Tailwind CSS
 - [x] Verify dev server runs with hot reload
+- [x] Add `@/` path alias in `vite.config.ts` and `tsconfig.json`
 
 **Reading**
 
@@ -54,7 +55,6 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 - [ ] Build `ProductGrid` that renders a list of `ProductCard`s
 - [ ] Build `Header` component with placeholder navigation links
 - [ ] Compose all components in `App.tsx`
-- [ ] Add `@/` path alias in `vite.config.ts` and `tsconfig.json`
 
 **Reading**
 
