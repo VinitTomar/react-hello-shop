@@ -1,5 +1,6 @@
 import type { Product } from "@/types/product";
 import ProductCard from "@/components/ProductCard";
+import { Link } from "react-router-dom";
 
 export type ProductGridProps = { products: Product[] };
 
@@ -17,7 +18,12 @@ function ProductGrid({ products }: ProductGridProps) {
       {products.map((p) => {
         return (
           <li key={p.id}>
-            <ProductCard product={p} variant="compact" />
+            <Link
+              to={`/products/${p.id}`}
+              className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-xl"
+            >
+              <ProductCard product={p} variant="compact" />
+            </Link>
           </li>
         );
       })}
