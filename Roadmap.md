@@ -49,12 +49,12 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Milestones**
 
-- [ ] Define `Product` TypeScript interface
-- [ ] Build `ProductCard` with typed props
-- [ ] Add variant support via discriminated union (`compact | full`)
-- [ ] Build `ProductGrid` that renders a list of `ProductCard`s
-- [ ] Build `Header` component with placeholder navigation links
-- [ ] Compose all components in `App.tsx`
+- [x] Define `Product` TypeScript interface
+- [x] Build `ProductCard` with typed props
+- [x] Add variant support via discriminated union (`compact | full`)
+- [x] Build `ProductGrid` that renders a list of `ProductCard`s
+- [x] Build `Header` component with placeholder navigation links
+- [x] Compose all components in `App.tsx`
 
 **Reading**
 
@@ -73,14 +73,14 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Milestones**
 
-- [ ] Install React Router v6 and wrap app in `<BrowserRouter>`
-- [ ] Define route tree with `<Routes>` / `<Route>`
-- [ ] Create `Home` page (product listing)
-- [ ] Create `ProductDetail` page using `useParams`
-- [ ] Create `Cart` page
-- [ ] Create `NotFound` 404 page
-- [ ] Add `<Link>` navigation in Header
-- [ ] Implement `useNavigate` for programmatic redirect
+- [x] Install React Router v6 and wrap app in `<BrowserRouter>`
+- [x] Define route tree with `<Routes>` / `<Route>`
+- [x] Create `Home` page (product listing)
+- [x] Create `ProductDetail` page using `useParams`
+- [x] Create `Cart` page
+- [x] Create `NotFound` 404 page
+- [x] Add `<Link>` navigation in Header
+- [x] Implement `useNavigate` for programmatic redirect
 
 **Reading**
 
