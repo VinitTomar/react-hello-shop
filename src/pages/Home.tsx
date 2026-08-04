@@ -10,6 +10,7 @@ import {
   type FilterValues,
 } from "@/schemas/filter";
 import FilterPanel from "@/components/FilterPanel";
+import { useDebounce } from "@/hooks/useDebounce";
 
 export default function Home() {
   const {
@@ -28,9 +29,10 @@ export default function Home() {
   });
 
   const values = useWatch({ control });
+  const debounceSearch = useDebounce(values.search ?? "", 300);
 
   const filteredProducts = MOCK_PRODUCTS.filter((p) => {
-    const q = values.search?.toLowerCase();
+    const q = debounceSearch?.toLowerCase();
 
     if (q && !p.name.toLowerCase().includes(q)) return false;
 
