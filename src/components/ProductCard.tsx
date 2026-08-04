@@ -1,3 +1,4 @@
+import { useCartStore } from "@/store/cartStore";
 import type { Product, ProductCardVariant } from "@/types/product";
 
 export type ProductCardProps = { product: Product } & ProductCardVariant;
@@ -8,10 +9,10 @@ const categoryBadgeClasses: Record<string, string> = {
   Books: "bg-amber-100 text-amber-700",
 };
 
-function ProductCard({
-  product: { imageUrl, name, price, category, description },
-  variant,
-}: ProductCardProps) {
+function ProductCard({ product, variant }: ProductCardProps) {
+  const { imageUrl, name, price, category, description } = product;
+  const addToCart = useCartStore((state) => state.addToCart);
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
       <img
@@ -35,6 +36,17 @@ function ProductCard({
         <span className="text-base font-bold text-gray-900">
           ${price.toFixed(2)}
         </span>
+        {variant === "compact" && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              addToCart(product);
+            }}
+            className="w-full mt-3 py-2 text-sm font-medium bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors"
+          >
+            Add to Cart
+          </button>
+        )}
         {variant === "full" && (
           <span className="text-sm text-gray-500">{description}</span>
         )}

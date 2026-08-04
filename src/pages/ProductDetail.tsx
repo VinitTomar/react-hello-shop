@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { MOCK_PRODUCTS } from "@/data/products";
+import { useCartStore } from "@/store/cartStore";
 
 const categoryBadgeClasses: Record<string, string> = {
   Electronics: "bg-blue-100 text-blue-700",
@@ -11,6 +12,7 @@ export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const product = MOCK_PRODUCTS.find((p) => p.id.toString() === id);
   const navigate = useNavigate();
+  const addToCart = useCartStore((state) => state.addToCart);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -50,8 +52,8 @@ export default function ProductDetail() {
             </span>
             <p className="text-gray-600 mt-3">{product.description}</p>
             <button
-              className="bg-gray-200 text-gray-400 cursor-not-allowed px-6 py-3 rounded-lg text-sm font-medium w-full mt-6"
-              disabled
+              onClick={() => addToCart(product)}
+              className="w-full mt-6 py-3 px-6 text-sm font-medium bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
               Add to Cart
             </button>
