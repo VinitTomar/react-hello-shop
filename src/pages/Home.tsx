@@ -2,7 +2,6 @@ import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import ProductGrid from "@/components/ProductGrid";
-import { MOCK_PRODUCTS } from "@/data/products";
 import SearchBar from "@/components/SearchBar";
 import {
   filterSchema,
@@ -11,8 +10,19 @@ import {
 } from "@/schemas/filter";
 import FilterPanel from "@/components/FilterPanel";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProducts } from "@/api/products";
 
 export default function Home() {
+  const {
+    data: products,
+    isPending,
+    isError,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+  });
+
   const {
     register,
     control,
@@ -31,7 +41,23 @@ export default function Home() {
   const values = useWatch({ control });
   const debounceSearch = useDebounce(values.search ?? "", 300);
 
-  const filteredProducts = MOCK_PRODUCTS.filter((p) => {
+  if (isPending) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <p className="text-gray-500">Loading products…</p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <p className="text-gray-500">Failed to load products.</p>
+      </div>
+    );
+  }
+
+  const filteredProducts = products.filter((p) => {
     const q = debounceSearch?.toLowerCase();
 
     if (q && !p.name.toLowerCase().includes(q)) return false;
