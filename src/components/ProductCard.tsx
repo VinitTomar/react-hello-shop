@@ -14,7 +14,7 @@ function ProductCard({ product, variant }: ProductCardProps) {
   const addToCart = useCartStore((state) => state.addToCart);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
       <img
         src={imageUrl}
         alt={name}
@@ -32,8 +32,10 @@ function ProductCard({ product, variant }: ProductCardProps) {
             {category}
           </span>
         )}
-        <span className="text-sm font-semibold text-gray-900">{name}</span>
-        <span className="text-base font-bold text-gray-900">
+        <span className="text-sm font-semibold text-gray-900 dark:text-white">
+          {name}
+        </span>
+        <span className="text-base font-bold text-gray-900 dark:text-white">
           ${price.toFixed(2)}
         </span>
         {variant === "compact" && (
@@ -48,7 +50,9 @@ function ProductCard({ product, variant }: ProductCardProps) {
           </button>
         )}
         {variant === "full" && (
-          <span className="text-sm text-gray-500">{description}</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            {description}
+          </span>
         )}
       </div>
     </div>
