@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="bg-gray-50 min-h-screen">
+      <main className="bg-gray-50 min-h-screen dark:bg-gray-900">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />

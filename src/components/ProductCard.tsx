@@ -1,3 +1,4 @@
+import { useCartStore } from "@/store/cartStore";
 import type { Product, ProductCardVariant } from "@/types/product";
 
 export type ProductCardProps = { product: Product } & ProductCardVariant;
@@ -8,12 +9,12 @@ const categoryBadgeClasses: Record<string, string> = {
   Books: "bg-amber-100 text-amber-700",
 };
 
-function ProductCard({
-  product: { imageUrl, name, price, category, description },
-  variant,
-}: ProductCardProps) {
+function ProductCard({ product, variant }: ProductCardProps) {
+  const { imageUrl, name, price, category, description } = product;
+  const addToCart = useCartStore((state) => state.addToCart);
+
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
       <img
         src={imageUrl}
         alt={name}
@@ -31,12 +32,27 @@ function ProductCard({
             {category}
           </span>
         )}
-        <span className="text-sm font-semibold text-gray-900">{name}</span>
-        <span className="text-base font-bold text-gray-900">
+        <span className="text-sm font-semibold text-gray-900 dark:text-white">
+          {name}
+        </span>
+        <span className="text-base font-bold text-gray-900 dark:text-white">
           ${price.toFixed(2)}
         </span>
+        {variant === "compact" && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              addToCart(product);
+            }}
+            className="w-full mt-3 py-2 text-sm font-medium bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors"
+          >
+            Add to Cart
+          </button>
+        )}
         {variant === "full" && (
-          <span className="text-sm text-gray-500">{description}</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            {description}
+          </span>
         )}
       </div>
     </div>

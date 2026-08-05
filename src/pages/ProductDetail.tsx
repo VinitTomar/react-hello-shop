@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { MOCK_PRODUCTS } from "@/data/products";
+import { useCartStore } from "@/store/cartStore";
 
 const categoryBadgeClasses: Record<string, string> = {
   Electronics: "bg-blue-100 text-blue-700",
@@ -11,6 +12,7 @@ export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const product = MOCK_PRODUCTS.find((p) => p.id.toString() === id);
   const navigate = useNavigate();
+  const addToCart = useCartStore((state) => state.addToCart);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -22,7 +24,7 @@ export default function ProductDetail() {
 
       <button
         onClick={() => navigate("/")}
-        className="text-sm text-gray-500 hover:text-gray-900 flex items-center gap-1 mb-6"
+        className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white flex items-center gap-1 mb-6"
       >
         ← Back to products
       </button>
@@ -35,7 +37,7 @@ export default function ProductDetail() {
             className="w-full aspect-[4/3] object-cover rounded-xl"
           />
           <div className="flex flex-col">
-            <h1 className="text-2xl font-bold text-gray-900">{product.name}</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{product.name}</h1>
             <span
               className={
                 (categoryBadgeClasses[product.category] ??
@@ -45,13 +47,13 @@ export default function ProductDetail() {
             >
               {product.category}
             </span>
-            <span className="text-xl font-bold mt-1 text-gray-900">
+            <span className="text-xl font-bold mt-1 text-gray-900 dark:text-white">
               ${product.price.toFixed(2)}
             </span>
-            <p className="text-gray-600 mt-3">{product.description}</p>
+            <p className="text-gray-600 dark:text-gray-300 mt-3">{product.description}</p>
             <button
-              className="bg-gray-200 text-gray-400 cursor-not-allowed px-6 py-3 rounded-lg text-sm font-medium w-full mt-6"
-              disabled
+              onClick={() => addToCart(product)}
+              className="w-full mt-6 py-3 px-6 text-sm font-medium bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
               Add to Cart
             </button>
