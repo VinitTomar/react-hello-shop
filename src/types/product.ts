@@ -14,3 +14,10 @@ export type ProductCardVariant =
   | {
       variant: "full";
     };
+
+export interface ProductPage {
+  products: Product[];
+  hasMore: boolean;
+  nextPage: number | null;
+  total: number;
+}

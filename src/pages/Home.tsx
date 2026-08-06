@@ -10,18 +10,30 @@ import {
 } from "@/schemas/filter";
 import FilterPanel from "@/components/FilterPanel";
 import { useDebounce } from "@/hooks/useDebounce";
-import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "@/api/products";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import type { ProductPage } from "@/types/product";
 
 export default function Home() {
   const {
-    data: products,
-    isPending,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
     isError,
-  } = useQuery({
+    isPending,
+  } = useInfiniteQuery({
     queryKey: ["products"],
-    queryFn: fetchProducts,
+    queryFn: ({ pageParam }: { pageParam: number }) =>
+      fetch(`/api/products?page=${pageParam}&limit=3`).then(
+        (r) => r.json() as Promise<ProductPage>,
+      ),
+    initialPageParam: 1,
+    getNextPageParam: ({ hasMore, nextPage }) =>
+      hasMore && nextPage != null ? nextPage : undefined,
   });
+
+  const products = data?.pages.flatMap((page) => page.products) ?? [];
+  const total = data?.pages[0]?.total ?? 0;
 
   const {
     register,
@@ -88,6 +100,22 @@ export default function Home() {
           <ProductGrid products={filteredProducts} />
         </div>
       </div>
+
+      {hasNextPage && (
+        <button
+          onClick={() => fetchNextPage()}
+          disabled={isFetchingNextPage}
+          className="mt-8 mx-auto block px-6 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isFetchingNextPage ? "Loading..." : "Load more"}
+        </button>
+      )}
+
+      {!hasNextPage && products.length > 0 && (
+        <p className="mt-8 text-center text-sm text-gray-400">
+          You've seen all {total} products.
+        </p>
+      )}
     </div>
   );
 }
