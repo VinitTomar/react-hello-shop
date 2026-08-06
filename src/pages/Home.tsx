@@ -11,9 +11,24 @@ import {
 import FilterPanel from "@/components/FilterPanel";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import type { ProductPage } from "@/types/product";
+import type { Product, ProductPage } from "@/types/product";
+import type { SortKey } from "@/types/sort";
+import { useCallback, useMemo, useState } from "react";
+import SortBar from "@/components/SortBar";
+
+function sortProducts(products: Product[], sortBy: SortKey): Product[] {
+  return [...products].sort((a, b) => {
+    if (sortBy === "name") return a.name.localeCompare(b.name);
+
+    if (sortBy === "price_asc") return a.price - b.price;
+
+    return b.price - a.price;
+  });
+}
 
 export default function Home() {
+  const [sortBy, setSortBy] = useState<SortKey>("name");
+
   const {
     data,
     fetchNextPage,
@@ -53,22 +68,6 @@ export default function Home() {
   const values = useWatch({ control });
   const debounceSearch = useDebounce(values.search ?? "", 300);
 
-  if (isPending) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <p className="text-gray-500">Loading products…</p>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <p className="text-gray-500">Failed to load products.</p>
-      </div>
-    );
-  }
-
   const filteredProducts = products.filter((p) => {
     const q = debounceSearch?.toLowerCase();
 
@@ -87,17 +86,44 @@ export default function Home() {
     return true;
   });
 
+  const sortedProducts = useMemo(
+    () => sortProducts(filteredProducts, sortBy),
+    [filteredProducts, sortBy],
+  );
+  const handleSortChange = useCallback((sort: SortKey) => {
+    setSortBy(sort);
+  }, []);
+
+  if (isPending) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <p className="text-gray-500">Loading products…</p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <p className="text-gray-500">Failed to load products.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-6">
         <SearchBar register={register} />
       </div>
+
+      <SortBar sortBy={sortBy} onSortChange={handleSortChange} />
+
       <div className="flex flex-col md:flex-row gap-6">
         <div className="w-full md:w-56 shrink-0">
           <FilterPanel register={register} errors={errors} />
         </div>
         <div className="flex-1 min-w-0">
-          <ProductGrid products={filteredProducts} />
+          <ProductGrid products={sortedProducts} />
         </div>
       </div>
 

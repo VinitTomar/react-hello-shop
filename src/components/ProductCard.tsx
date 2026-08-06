@@ -1,6 +1,7 @@
 import { useWishlist } from "@/hooks/useWishlist";
 import { useCartStore } from "@/store/cartStore";
 import type { Product, ProductCardVariant } from "@/types/product";
+import { memo } from "react";
 
 export type ProductCardProps = { product: Product } & ProductCardVariant;
 
@@ -95,4 +96,4 @@ function ProductCard({ product, variant }: ProductCardProps) {
   );
 }
 
-export default ProductCard;
+export default memo(ProductCard);
