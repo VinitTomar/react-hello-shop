@@ -13,12 +13,23 @@ const mockProduct = {
   imageUrl: "https://example.com/headphones.jpg",
 };
 
-function renderWithClient(component: React.ReactElement) {
+// Helper to wrap component with QueryClientProvider.
+// `ProductCard` depends on `useWishlist()`, which requires this provider.
+// `staleTime: Infinity` stops React Query from refetching seeded data on mount,
+// so a pre-populated wishlist cache stays put for the duration of the test.
+function renderWithClient(
+  component: React.ReactElement,
+  options: { wishlist?: string[] } = {},
+) {
   const queryClient = new QueryClient({
     defaultOptions: {
-      queries: { retry: false },
+      queries: { retry: false, staleTime: Infinity },
     },
   });
+
+  if (options.wishlist) {
+    queryClient.setQueryData(["wishlist"], options.wishlist);
+  }
 
   return render(
     <QueryClientProvider client={queryClient}>{component}</QueryClientProvider>,
@@ -27,6 +38,10 @@ function renderWithClient(component: React.ReactElement) {
 
 beforeEach(() => {
   useCartStore.setState({ items: [] });
+});
+
+afterEach(() => {
+  vi.unstubAllGlobals();
 });
 
 describe("ProductCard - compact variant", () => {
@@ -87,5 +102,44 @@ describe("ProductCard — full variant", () => {
     expect(
       screen.queryByRole("button", { name: /add to cart/i }),
     ).not.toBeInTheDocument();
+  });
+});
+
+describe("ProductCard — wishlist toggle", () => {
+  it("labels the heart 'Add to wishlist' when the product is not wishlisted", () => {
+    renderWithClient(<ProductCard product={mockProduct} variant="compact" />, {
+      wishlist: [],
+    });
+    expect(
+      screen.getByRole("button", { name: /add to wishlist/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("labels the heart 'Remove from wishlist' when the product is already wishlisted", () => {
+    renderWithClient(<ProductCard product={mockProduct} variant="compact" />, {
+      wishlist: ["1"],
+    });
+    expect(
+      screen.getByRole("button", { name: /remove from wishlist/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("optimistically marks the product as wishlisted while the mutation is in flight", async () => {
+    // A fetch that never settles keeps the mutation pending, so the optimistic
+    // update applied in `onMutate` is observable and never rolls back mid-assertion.
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(() => new Promise(() => {})),
+    );
+    const user = userEvent.setup();
+    renderWithClient(<ProductCard product={mockProduct} variant="compact" />, {
+      wishlist: [],
+    });
+
+    await user.click(screen.getByRole("button", { name: /add to wishlist/i }));
+
+    expect(
+      await screen.findByRole("button", { name: /remove from wishlist/i }),
+    ).toBeInTheDocument();
   });
 });
