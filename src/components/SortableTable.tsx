@@ -89,7 +89,7 @@ function SortableTable<T>({
           {sorted.map((row) => (
             <tr
               key={getRowKey(row)}
-              className="bg-white hover:bg-gray-50 transition-colors"
+              className="bg-white border-gray-100 hover:bg-gray-50 transition-colors"
             >
               {columns.map((col) => (
                 <td
