@@ -1,75 +1,67 @@
-# React + TypeScript + Vite
+# ReactMart — Learn React + TypeScript by Building an E-Commerce App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ReactMart is a hands-on, project-based course for learning React and TypeScript. Instead of isolated exercises, you build one real app — an e-commerce store — one feature at a time, with each feature teaching a specific concept.
 
-Currently, two official plugins are available:
+## What You'll Learn
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- TypeScript in strict mode (typed props, discriminated unions, generics, advanced patterns)
+- Client-side routing with React Router
+- Forms and validation with React Hook Form + Zod
+- Reusable logic with custom hooks
+- State management — Zustand, Context API, and Redux Toolkit (and when to reach for each)
+- Server state with TanStack Query (caching, mutations, infinite scroll)
+- Performance optimization and code splitting
+- Testing with Vitest and React Testing Library (unit and integration)
 
-## React Compiler
+## Prerequisites
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+You should be comfortable with basic HTML, CSS, and JavaScript (variables, functions, arrays/objects). **No prior React experience is required.** If you've never worked with JSX or components before, skim [React's Quick Start](https://react.dev/learn) first — ReactMart moves fast from there.
 
-## Expanding the ESLint configuration
+You'll also need [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/installation) installed.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+git clone <this-repo-url>
+cd react-crash-course
+pnpm install
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## How This Repo Is Organized
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **`main`** holds the fully finished app, with every module merged in.
+- **Every lesson lives on its own branch** (e.g. `v0.5-custom-hooks`, `v0.9-tanstack-query`). Branch names aren't perfectly uniform — one is even named `v0.7-state-mgmt-context-api.md` — that's a real repo quirk, not a typo in this doc.
+- **`/specs`** holds one PRD-style spec per version — goal, background, constraints, and what's explicitly out of scope for that module.
+- **[Roadmap.md](./Roadmap.md)** is the full syllabus: every version's milestones, concepts, branch name, spec link, and further reading.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## How to Learn From This Repo
 
-```
+Each module follows the same **try-then-check** loop:
+
+1. Open [Roadmap.md](./Roadmap.md) and find the next version.
+2. `git checkout` the **previous** version's branch — that's your starting point.
+3. Read that version's spec in `/specs` to understand the goal and constraints.
+4. Try implementing the feature yourself.
+5. `git checkout` the target version's branch, then run `git diff <previous-branch> <this-branch>` to compare your attempt against the reference implementation.
+6. Stuck on a concept? Use the "Reading" links under that version in Roadmap.md.
+
+## Tech Stack
+
+Vite, React, TypeScript, React Router, Zustand, Redux Toolkit, TanStack Query, React Hook Form, Zod, Tailwind CSS, Vitest, React Testing Library, MSW. See [Roadmap.md](./Roadmap.md#tech-stack) for the full breakdown by layer.
+
+## Available Scripts
+
+| Command             | Description                          |
+| ------------------- | ------------------------------------- |
+| `pnpm dev`           | Start the dev server with HMR         |
+| `pnpm build`         | Type-check and build for production   |
+| `pnpm preview`       | Preview the production build locally  |
+| `pnpm lint`          | Run ESLint                            |
+| `pnpm test`          | Run tests in watch mode               |
+| `pnpm test:run`      | Run tests once                        |
+| `pnpm test:coverage` | Run tests with coverage report        |
+
+## Course Status
+
+ReactMart is an ongoing, growing curriculum. v0.1 through v0.15 are complete — from project setup through integration testing — with more phases planned. See [Roadmap.md](./Roadmap.md) for the complete, up-to-date curriculum.
