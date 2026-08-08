@@ -1,4 +1,5 @@
 import { MOCK_PRODUCTS } from "@/data/products";
+import type { OrderResult } from "@/types/checkout";
 import type { ProductPage } from "@/types/product";
 import { delay, http, HttpResponse } from "msw";
 
@@ -48,5 +49,13 @@ export const handlers = [
     wishlist = wishlist.filter((id) => id !== params.productId);
 
     return new HttpResponse(null, { status: 204 });
+  }),
+
+  http.post("/api/checkout", async () => {
+    await delay(300);
+    return HttpResponse.json<OrderResult>({
+      orderId: "ORD-TEST-001",
+      total: 79.99,
+    });
   }),
 ];
