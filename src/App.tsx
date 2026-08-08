@@ -10,6 +10,7 @@ const Cart = lazy(() => import("@/pages/Cart"));
 const Orders = lazy(() => import("@/pages/Orders"));
 const Profile = lazy(() => import("@/pages/Profile"));
 const AdminDashboard = lazy(() => import("@/pages/AdminDashboard"));
+const Checkout = lazy(() => import("@/pages/Checkout"));
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="*" element={<NotFound />} />

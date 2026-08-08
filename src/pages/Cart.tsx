@@ -44,7 +44,7 @@ export default function Cart() {
                     {item.product.name}
                   </p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    $${item.product.price.toFixed(2)}
+                    ${item.product.price.toFixed(2)}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -85,7 +85,7 @@ export default function Cart() {
               Total
             </span>
             <span className="text-base font-bold text-gray-900 dark:text-white">
-              $${totalPrice.toFixed(2)}
+              ${totalPrice.toFixed(2)}
             </span>
           </div>
 
@@ -96,12 +96,12 @@ export default function Cart() {
             >
               Clear Cart
             </button>
-            <button
-              className="bg-gray-200 text-gray-400 cursor-not-allowed px-6 py-3 rounded-lg text-sm font-medium"
-              disabled
+            <Link
+              to="/checkout"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
             >
-              Proceed to Checkout →
-            </button>
+              Checkout
+            </Link>
           </div>
         </div>
       )}
