@@ -2,7 +2,9 @@
 
 A project-based curriculum building an e-commerce store from scratch.
 Each module adds a feature to the app and teaches a specific concept.
-Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any lesson.
+Every lesson is checked out from its own branch: `git checkout v0.3-routing` jumps to any lesson. See the README's [How to Learn From This Repo](./README.md#how-to-learn-from-this-repo) section for the full try-then-check workflow.
+
+This is a living roadmap — v0.1 through v0.15 are complete, and more phases are planned.
 
 ## Tech Stack
 
@@ -26,6 +28,7 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Vite scaffold, folder structure, ESLint + Prettier, Tailwind, path aliases
 **Concept:** tsconfig strict mode, path aliases (`@/`), project hygiene
+**Branch:** `v0.1-Project-Setup`
 
 **Milestones**
 
@@ -46,6 +49,7 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Header, ProductCard, ProductGrid components
 **Concept:** Typed props, discriminated unions for variants, component composition
+**Branch:** `v0.2-Component-Architecture` · **Spec:** [specs/v0.2-component-architecture.md](specs/v0.2-component-architecture.md) · **Compare:** `git diff v0.1-Project-Setup v0.2-Component-Architecture`
 
 **Milestones**
 
@@ -70,6 +74,7 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Home (product listing), Product Detail, Cart, and 404 pages
 **Concept:** Routes, useParams, useNavigate, Outlet, nested routes
+**Branch:** `v0.3-routing` · **Spec:** [specs/v0.3-react-router.md](specs/v0.3-react-router.md) · **Compare:** `git diff v0.2-Component-Architecture v0.3-routing`
 
 **Milestones**
 
@@ -96,15 +101,16 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Search bar + filter sidebar (category, price range)
 **Concept:** React Hook Form + Zod, typed form state, validation schemas
+**Branch:** `v0.4-forms` · **Spec:** [specs/v0.4-forms-validation.md](specs/v0.4-forms-validation.md) · **Compare:** `git diff v0.3-routing v0.4-forms`
 
 **Milestones**
 
-- [ ] Install React Hook Form and Zod
-- [ ] Define Zod schema for the search/filter form
-- [ ] Wire RHF with `zodResolver`
-- [ ] Build search bar input with inline validation error
-- [ ] Build category filter (checkbox group)
-- [ ] Build price range filter (min/max inputs)
+- [x] Install React Hook Form and Zod
+- [x] Define Zod schema for the search/filter form
+- [x] Wire RHF with `zodResolver`
+- [x] Build search bar input with inline validation error
+- [x] Build category filter (checkbox group)
+- [x] Build price range filter (min/max inputs)
 
 **Reading**
 
@@ -120,14 +126,15 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** useDebounce (for search), useLocalStorage, useWindowSize
 **Concept:** Custom hooks, TypeScript generics in hooks
+**Branch:** `v0.5-custom-hooks` · **Spec:** [specs/v0.5-custom-hooks.md](specs/v0.5-custom-hooks.md) · **Compare:** `git diff v0.4-forms v0.5-custom-hooks`
 
 **Milestones**
 
-- [ ] Implement `useDebounce<T>` with a generic type parameter
-- [ ] Wire `useDebounce` to the search input (300 ms delay)
-- [ ] Implement `useLocalStorage<T>` with JSON serialization
-- [ ] Implement `useWindowSize` returning `{ width, height }`
-- [ ] Write `renderHook` + Vitest tests for each hook
+- [x] Implement `useDebounce<T>` with a generic type parameter
+- [x] Wire `useDebounce` to the search input (300 ms delay)
+- [x] Implement `useLocalStorage<T>` with JSON serialization
+- [x] Implement `useWindowSize` returning `{ width, height }`
+- [x] Write `renderHook` + Vitest tests for each hook
 
 **Reading**
 
@@ -143,17 +150,18 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Cart (add / remove / update quantity / clear)
 **Concept:** Zustand typed store, persist middleware, devtools integration
+**Branch:** `v0.6-state-mgmt-zustand` · **Spec:** [specs/v0.6-zustand.md](specs/v0.6-zustand.md) · **Compare:** `git diff v0.5-custom-hooks v0.6-state-mgmt-zustand`
 
 **Milestones**
 
-- [ ] Install Zustand
-- [ ] Define `CartItem` and `CartStore` TypeScript interfaces
-- [ ] Implement store with `create<CartStore>()` (add / remove / updateQuantity / clear)
-- [ ] Add `persist` middleware (localStorage)
-- [ ] Add Zustand DevTools middleware
-- [ ] Connect `ProductCard` "Add to Cart" button to store
-- [ ] Render cart badge in Header from store
-- [ ] Render full cart contents on the Cart page
+- [x] Install Zustand
+- [x] Define `CartItem` and `CartStore` TypeScript interfaces
+- [x] Implement store with `create<CartStore>()` (add / remove / updateQuantity / clear)
+- [x] Add `persist` middleware (localStorage)
+- [x] Add Zustand DevTools middleware
+- [x] Connect `ProductCard` "Add to Cart" button to store
+- [x] Render cart badge in Header from store
+- [x] Render full cart contents on the Cart page
 
 **Reading**
 
@@ -165,16 +173,17 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Auth state (login/logout) + dark/light theme toggle
 **Concept:** Typed context, createContext with generics, context optimization (splitting contexts)
+**Branch:** `v0.7-state-mgmt-context-api.md` (yes, the branch name really has a stray `.md`) · **Spec:** [specs/v0.7-context-api.md](specs/v0.7-context-api.md) · **Compare:** `git diff v0.6-state-mgmt-zustand v0.7-state-mgmt-context-api.md`
 
 **Milestones**
 
-- [ ] Create `AuthContext` with `User | null`, `login`, and `logout` typed actions
-- [ ] Create `AuthProvider` wrapping the app
-- [ ] Implement `useAuth` custom hook
-- [ ] Create `ThemeContext` for `"light" | "dark"` toggle
-- [ ] Persist theme preference to `localStorage`
-- [ ] Add theme toggle button in Header
-- [ ] Apply Tailwind `dark:` classes throughout components
+- [x] Create `AuthContext` with `User | null`, `login`, and `logout` typed actions
+- [x] Create `AuthProvider` wrapping the app
+- [x] Implement `useAuth` custom hook
+- [x] Create `ThemeContext` for `"light" | "dark"` toggle
+- [x] Persist theme preference to `localStorage`
+- [x] Add theme toggle button in Header
+- [x] Apply Tailwind `dark:` classes throughout components
 
 **Reading**
 
@@ -186,16 +195,17 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** User profile + order history
 **Concept:** createSlice, createAsyncThunk, RTK DevTools — and when to use RTK vs Zustand
+**Branch:** `v0.8-state-mgmt-redux` · **Spec:** [specs/v0.8-redux-toolkit.md](specs/v0.8-redux-toolkit.md) · **Compare:** `git diff v0.7-state-mgmt-context-api.md v0.8-state-mgmt-redux`
 
 **Milestones**
 
-- [ ] Install Redux Toolkit and `react-redux`
-- [ ] Configure the Redux store with `configureStore`
-- [ ] Create `userSlice` with `createSlice` (user profile state)
-- [ ] Create `ordersSlice` with `createAsyncThunk` (fetch order history)
-- [ ] Connect components with `useSelector` and typed `useDispatch`
-- [ ] Verify Redux DevTools browser extension works
-- [ ] Note in code/docs when to reach for RTK vs Zustand
+- [x] Install Redux Toolkit and `react-redux`
+- [x] Configure the Redux store with `configureStore`
+- [x] Create `userSlice` with `createSlice` (user profile state)
+- [x] Create `ordersSlice` with `createAsyncThunk` (fetch order history)
+- [x] Connect components with `useSelector` and typed `useDispatch`
+- [x] Verify Redux DevTools browser extension works
+- [x] Note in code/docs when to reach for RTK vs Zustand
 
 **Reading**
 
@@ -211,16 +221,17 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Fetch products + product detail from a mock API (MSW)
 **Concept:** useQuery, query keys, stale time, loading/error states, MSW setup
+**Branch:** `v0.9-tanstack-query` · **Spec:** [specs/v0.9-tanstack-query.md](specs/v0.9-tanstack-query.md) · **Compare:** `git diff v0.8-state-mgmt-redux v0.9-tanstack-query`
 
 **Milestones**
 
-- [ ] Install TanStack Query v5 and MSW
-- [ ] Set up MSW handlers for `GET /products` and `GET /products/:id`
-- [ ] Configure `QueryClient` and wrap app in `<QueryClientProvider>`
-- [ ] Replace in-component fetch with `useQuery` for product listing
-- [ ] Replace in-component fetch with `useQuery` for product detail
-- [ ] Handle loading, error, and success states in UI
-- [ ] Configure `staleTime` and observe caching behavior
+- [x] Install TanStack Query v5 and MSW
+- [x] Set up MSW handlers for `GET /products` and `GET /products/:id`
+- [x] Configure `QueryClient` and wrap app in `<QueryClientProvider>`
+- [x] Replace in-component fetch with `useQuery` for product listing
+- [x] Replace in-component fetch with `useQuery` for product detail
+- [x] Handle loading, error, and success states in UI
+- [x] Configure `staleTime` and observe caching behavior
 
 **Reading**
 
@@ -232,15 +243,16 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Wishlist with optimistic add/remove + infinite scroll on product listing
 **Concept:** useMutation, optimistic updates, useInfiniteQuery, query invalidation
+**Branch:** `v0.10-advanced-query-patterns` · **Spec:** [specs/v0.10-advanced-query-patterns.md](specs/v0.10-advanced-query-patterns.md) · **Compare:** `git diff v0.9-tanstack-query v0.10-advanced-query-patterns`
 
 **Milestones**
 
-- [ ] Implement `useMutation` for adding a wishlist item
-- [ ] Implement `useMutation` for removing a wishlist item
-- [ ] Add optimistic updates (`onMutate`) with rollback on error (`onError`)
-- [ ] Invalidate and refetch queries after mutation (`queryClient.invalidateQueries`)
-- [ ] Replace product listing pagination with `useInfiniteQuery`
-- [ ] Implement "Load More" button calling `fetchNextPage`
+- [x] Implement `useMutation` for adding a wishlist item
+- [x] Implement `useMutation` for removing a wishlist item
+- [x] Add optimistic updates (`onMutate`) with rollback on error (`onError`)
+- [x] Invalidate and refetch queries after mutation (`queryClient.invalidateQueries`)
+- [x] Replace product listing pagination with `useInfiniteQuery`
+- [x] Implement "Load More" button calling `fetchNextPage`
 
 **Reading**
 
@@ -256,14 +268,15 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Optimize product grid rendering for large datasets
 **Concept:** React.memo, useMemo, useCallback, profiling with React DevTools
+**Branch:** `v0.11-performance-optimization` · **Spec:** [specs/v0.11-performance-optimization.md](specs/v0.11-performance-optimization.md) · **Compare:** `git diff v0.10-advanced-query-patterns v0.11-performance-optimization`
 
 **Milestones**
 
-- [ ] Profile product grid with React DevTools Profiler (baseline)
-- [ ] Wrap `ProductCard` in `React.memo` and verify re-render reduction
-- [ ] Memoize expensive derived values with `useMemo`
-- [ ] Stabilize callback props with `useCallback`
-- [ ] Re-profile and compare flame graphs before vs after
+- [x] Profile product grid with React DevTools Profiler (baseline)
+- [x] Wrap `ProductCard` in `React.memo` and verify re-render reduction
+- [x] Memoize expensive derived values with `useMemo`
+- [x] Stabilize callback props with `useCallback`
+- [x] Re-profile and compare flame graphs before vs after
 
 **Reading**
 
@@ -276,14 +289,15 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Lazy-load Product Detail page + Admin dashboard route
 **Concept:** React.lazy, Suspense, route-based code splitting, dynamic imports
+**Branch:** `v0.12-code-splitting` · **Spec:** [specs/v0.12-code-splitting.md](specs/v0.12-code-splitting.md) · **Compare:** `git diff v0.11-performance-optimization v0.12-code-splitting`
 
 **Milestones**
 
-- [ ] Wrap `ProductDetail` import with `React.lazy`
-- [ ] Add `<Suspense fallback={<Spinner />}>` around lazy routes
-- [ ] Create stub `AdminDashboard` route and lazy-load it
-- [ ] Run `vite build` and verify split chunks in output
-- [ ] Measure bundle size reduction with `npx vite-bundle-visualizer`
+- [x] Wrap `ProductDetail` import with `React.lazy`
+- [x] Add `<Suspense fallback={<Spinner />}>` around lazy routes
+- [x] Create stub `AdminDashboard` route and lazy-load it
+- [x] Run `vite build` and verify split chunks in output
+- [x] Measure bundle size reduction with `npx vite-bundle-visualizer`
 
 **Reading**
 
@@ -299,15 +313,16 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Generic SortableTable component for order history
 **Concept:** Generic components, conditional types, mapped types, template literal types, `satisfies` operator
+**Branch:** `v0.13-advanced-typescript` · **Spec:** [specs/v0.13-advanced-typescript.md](specs/v0.13-advanced-typescript.md) · **Compare:** `git diff v0.12-code-splitting v0.13-advanced-typescript`
 
 **Milestones**
 
-- [ ] Design `SortableTable<T>` generic component interface
-- [ ] Implement typed column definitions with accessor functions
-- [ ] Use mapped types to derive sortable/filterable keys from the row shape
-- [ ] Apply conditional types for optional column features (e.g., selectable rows)
-- [ ] Use template literal types for sort keys (`"name_asc" | "name_desc"`)
-- [ ] Validate config objects with the `satisfies` operator
+- [x] Design `SortableTable<T>` generic component interface
+- [x] Implement typed column definitions with accessor functions
+- [x] Use mapped types to derive sortable/filterable keys from the row shape
+- [x] Apply conditional types for optional column features (e.g., selectable rows)
+- [x] Use template literal types for sort keys (`"name_asc" | "name_desc"`)
+- [x] Validate config objects with the `satisfies` operator
 
 **Reading**
 
@@ -325,14 +340,15 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Test suite for ProductCard, cart store, useDebounce hook
 **Concept:** Vitest + RTL: render, screen queries, userEvent, renderHook for custom hooks
+**Branch:** `v0.14-unit-testing` · **Spec:** [specs/v0.14-unit-testing.md](specs/v0.14-unit-testing.md) · **Compare:** `git diff v0.13-advanced-typescript v0.14-unit-testing`
 
 **Milestones**
 
-- [ ] Configure Vitest and React Testing Library
-- [ ] Write render + query tests for `ProductCard`
-- [ ] Write `userEvent` interaction tests (add to cart click)
-- [ ] Write pure unit tests for Zustand cart store state transitions
-- [ ] Write `renderHook` tests for `useDebounce`
+- [x] Configure Vitest and React Testing Library
+- [x] Write render + query tests for `ProductCard`
+- [x] Write `userEvent` interaction tests (add to cart click)
+- [x] Write pure unit tests for Zustand cart store state transitions
+- [x] Write `renderHook` tests for `useDebounce`
 
 **Reading**
 
@@ -345,16 +361,17 @@ Progress is tracked via tagged commits: `git checkout v0.3-routing` jumps to any
 
 **Feature:** Multi-step checkout flow (cart → shipping → payment → confirmation) + integration tests
 **Concept:** Integration testing with RTL, MSW for API mocking in tests, accessibility testing
+**Branch:** `v0.15-integration-testing` · **Spec:** [specs/v0.15-integration-testing.md](specs/v0.15-integration-testing.md) · **Compare:** `git diff v0.14-unit-testing v0.15-integration-testing`
 
 **Milestones**
 
-- [ ] Plan the 4-step checkout flow (Cart → Shipping → Payment → Confirmation)
-- [ ] Build `ShippingForm` step with RHF + Zod validation
-- [ ] Build `PaymentForm` step
-- [ ] Build `OrderConfirmation` step
-- [ ] Set up MSW handlers for checkout API endpoints
-- [ ] Write integration tests driving the full checkout flow end-to-end
-- [ ] Add `axe-core` accessibility checks to integration tests
+- [x] Plan the 4-step checkout flow (Cart → Shipping → Payment → Confirmation)
+- [x] Build `ShippingForm` step with RHF + Zod validation
+- [x] Build `PaymentForm` step
+- [x] Build `OrderConfirmation` step
+- [x] Set up MSW handlers for checkout API endpoints
+- [x] Write integration tests driving the full checkout flow end-to-end
+- [x] Add `axe-core` accessibility checks to integration tests
 
 **Reading**
 
